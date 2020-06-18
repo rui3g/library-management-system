@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tjrac.sytstem.dao.ListOrderDao">
+    <resultMap id="order" type="cn.tjrac.sytstem.vo.OrderVo">
+        <id column="department" property="department"></id>
+        <id column="grade" property="grade"></id>
+        <id column="profession" property="profession"></id>
+        <id column="bookName" property="bookName"></id>
+        <id column="press" property="press"></id>
+        <id column="bookPrice" property="bookPrice"></id>
+        <id column="bookNumber" property="bookNumber"></id>
+        <id column="author" property="author"></id>
+        <id column="edition" property="edition"></id>
+        <id column="teacherBookCount" property="teacherBookCount"></id>
+        <id column="studentBookQuantity" property="studentBookQuantity"></id>
+        <id column="teacherName" property="teacherName"></id>
+        <id column="teacherTel" property="teacherTel"></id>
+        <id column="bookDirectorTel" property="bookDirectorTel"></id>
+        <id column="remark" property="remark"></id>
+    </resultMap>
+    <select id="selectListOrder" resultMap="order">
+        select *
+        from ra_booklist_order
+        where bookNumber = #{bookNumber}
+        AND profession = #{profession}
+        AND grade = #{grade}
+    </select>
+
+    <select id="selectOneOrder" resultMap="order">
+        select *
+        from ra_booklist_order where bookNumber = #{bookNumber}
+    </select>
+
+    <select id="selectAllOrder" resultMap="order">
+        select *
+        from ra_booklist_order
+    </select>
+
+    <insert id="insertRepertory" parameterType="cn.tjrac.sytstem.vo.EnterHouseVo">
+        insert into tjrac_repertory(
+        bookNumber,
+        bookName,
+        bookPrice,
+        repertoryQuantity
+        ) values (
+        #{bookNumber},
+        #{bookName},
+        #{bookPrice},
+        #{enterQuantity}
+        )
+    </insert>
+
+    <insert id="insertListOrder" parameterType="cn.tjrac.sytstem.vo.EnterHouseVo">
+        insert into tjrac_entering_warehouse(
+        bookNumber,
+        bookName,
+        bookPrice,
+        enterQuantity,
+        dateTime,
+        department
+        ) values (
+        #{bookNumber},
+        #{bookName},
+        #{bookPrice},
+        #{enterQuantity},
+        #{dateTime},
+        #{department}
+        )
+    </insert>
+
+    <resultMap id="enterhouse" type="cn.tjrac.sytstem.vo.EnterHouseVo">
+        <id column="bookNumber" property="bookNumber"></id>
+        <id column="bookName" property="bookName"></id>
+        <id column="bookPrice" property="bookPrice"></id>
+        <id column="enterQuantity" property="enterQuantity"></id>
+        <id column="dateTime" property="dateTime"></id>
+        <id column="department" property="department"></id>
+    </resultMap>
+
+    <select id="selectEnterHouse" resultMap="enterhouse">
+        select * from tjrac_entering_warehouse
+    </select>
+
+    <resultMap id="repertory" type="cn.tjrac.sytstem.vo.RepertoryVo">
+        <id column="bookNumber" property="bookNumber"></id>
+        <id column="bookName" property="bookName"></id>
+        <id column="bookPrice" property="bookPrice"></id>
+        <id column="repertoryQuantity" property="repertoryQuantity"></id>
+    </resultMap>
+
+    <select id="selectRepertory" resultMap="repertory">
+        select * from tjrac_repertory
+    </select>
+
+
+</mapper>

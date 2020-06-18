@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tjrac.sytstem.dao.LoginDao">
+
+    <select id="login" resultType="cn.tjrac.sytstem.vo.UserVo">
+        select * from ra_login where customer=#{customer} and `password`=#{password}
+    </select>
+
+    <insert id="register" parameterType="cn.tjrac.sytstem.vo.UserVo">
+        INSERT INTO ra_login
+        VALUES
+            (
+                #{uid},
+                #{customer},
+                #{password},
+                #{type},
+                #{departmentID},
+                #{status}
+            )
+    </insert>
+
+    <update id="uppassword" parameterType="cn.tjrac.sytstem.vo.UserVo">
+        UPDATE ra_login SET `password`=#{password} where uid=#{uid};
+    </update>
+
+    <select id="seldepartment" resultType="cn.tjrac.sytstem.vo.DepartVo">
+        select * from ra_department;
+    </select>
+
+    <select id="selgrade" resultType="cn.tjrac.sytstem.vo.GradeVo">
+        select * from ra_grade;
+    </select>
+
+    <select id="selprofession" resultType="cn.tjrac.sytstem.vo.ProfessionVo">
+        select * from ra_profession;
+    </select>
+
+</mapper>

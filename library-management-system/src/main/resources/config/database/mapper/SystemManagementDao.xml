@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tjrac.sytstem.dao.SystemManagementDao">
+    <resultMap id="system" type="cn.tjrac.sytstem.vo.SystemVo">
+        <id column="content" property="content"></id>
+    </resultMap>
+    <select id="selectSystem" resultMap="system">
+        select content from tjrac_notice order by id desc
+    </select>
+
+    <select id="selectInformtion" resultMap="system">
+        select content from tjrac_informtion order by id desc
+    </select>
+
+    <insert id="insertNotice" parameterType="cn.tjrac.sytstem.vo.SystemxVo">
+        insert into tjrac_notice values (
+        #{id},
+        #{content}
+        )
+    </insert>
+
+    <insert id="insertInformtion" parameterType="cn.tjrac.sytstem.vo.SystemxVo">
+        insert into tjrac_informtion values (
+        #{id},
+        #{content}
+        )
+    </insert>
+
+    <resultMap id="user" type="cn.tjrac.sytstem.vo.UserVo">
+        <id column="uid" property="uid"></id>
+        <id column="customer" property="customer"></id>
+        <id column="password" property="password"></id>
+        <id column="type" property="type"></id>
+        <id column="departmentID" property="departmentID"></id>
+        <id column="status" property="status"></id>
+    </resultMap>
+    <select id="selectUserInfo" resultMap="user">
+        select * from ra_login where status = 0
+    </select>
+    <update id="updateUserStatus" parameterType="cn.tjrac.sytstem.vo.UserVo">
+        update ra_login set status = 1 where uid = #{uid}
+    </update>
+
+    <delete id="delUser" parameterType="cn.tjrac.sytstem.vo.UserVo">
+        delete from ra_login where uid = #{uid}
+    </delete>
+
+</mapper>

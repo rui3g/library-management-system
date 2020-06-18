@@ -1,0 +1,24 @@
+spring:
+  profiles: default
+server:
+  tomcat:
+    max-threads: 1024
+eureka:
+  user: user
+  password: 123456
+  server: localhost:21000/eureka/
+datasource:
+  url: jdbc:mysql://127.0.0.1:3306/library_management_system?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+  username: root
+  password: 123456
+  driver-class-name: com.mysql.jdbc.Driver
+redis:
+  host: 127.0.0.1
+  password: 123456
+  port: 6379
+security:
+  basic:
+    enabled: false
+  user:
+    name: user
+    password: 123456

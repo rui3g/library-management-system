@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.tjrac.sytstem.dao.OutLayDao">
+    <insert id="addOutLay" parameterType="java.util.List">
+        insert into tjrac_outlay (
+        bookNumber,
+        bookName,
+        outQuantity,
+        dateTime,
+        department) values
+        <foreach collection="list" item="outlayvo" index="index"
+                 separator=",">
+            (#{outlayvo.bookNumber,jdbcType=VARCHAR},
+            #{outlayvo.bookName,jdbcType=VARCHAR},
+            #{outlayvo.outQuantity,jdbcType=INTEGER},
+            #{outlayvo.dateTime,jdbcType=VARCHAR},
+            #{outlayvo.department,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+    <insert id="insertNotifion" parameterType="cn.tjrac.sytstem.vo.NotifionVo">
+        insert into tjrac_notification (
+        orderNumber,
+        bookNumber,
+        bookName,
+        bookPrice,
+        quantity,
+        sumPrice
+        )VALUES(
+        #{orderNumber},
+        #{bookNumber},
+        #{bookName},
+        #{bookPrice},
+        #{quantity},
+        #{sumPrice})
+    </insert>
+
+    <insert id="insertStatement" parameterType="java.util.List">
+        insert into tjrac_statement (
+        orderNumber,
+        bookNumber,
+        bookName,
+        bookPrice,
+        quantity,
+        sumPrice
+        )VALUES
+        <foreach collection="list" item="nl" index="index"
+                 separator=",">
+            (#{nl.orderNumber,jdbcType=VARCHAR},
+            #{nl.bookNumber,jdbcType=VARCHAR},
+            #{nl.bookName,jdbcType=VARCHAR},
+            #{nl.bookPrice,jdbcType=INTEGER},
+            #{nl.quantity,jdbcType=INTEGER},
+            #{nl.sumPrice,jdbcType=INTEGER})
+        </foreach>
+    </insert>
+
+    <resultMap id="outlay" type="cn.tjrac.sytstem.vo.OutLayVo">
+        <id column="bookNumber" property="bookNumber"></id>
+        <id column="bookName" property="bookName"></id>
+        <id column="outQuantity" property="outQuantity"></id>
+        <id column="dateTime" property="dateTime"></id>
+        <id column="department" property="department"></id>
+    </resultMap>
+
+    <select id="selectOutLay" resultMap="outlay">
+        select * from tjrac_outlay
+    </select>
+    
+    <update id="upRepertory" parameterType="cn.tjrac.sytstem.vo.RepertoryVo">
+        update tjrac_repertory set repertoryQuantity=repertoryQuantity-#{repertoryQuantity} where bookNumber = #{bookNumber}
+    </update>
+
+    <resultMap id="depart" type="cn.tjrac.sytstem.vo.DepartVo">
+        <id column="departmentID" property="departmentID"></id>
+        <id column="department" property="department"></id>
+    </resultMap>
+    
+    <select id="selectDepartment" resultMap="depart">
+        select * from ra_department where department = #{department}
+    </select>
+
+    <resultMap id="notifion" type="cn.tjrac.sytstem.vo.NotifionVo">
+        <id column="orderNumber" property="orderNumber"></id>
+        <id column="bookNumber" property="bookNumber"></id>
+        <id column="bookName" property="bookName"></id>
+        <id column="bookPrice" property="bookPrice"></id>
+        <id column="quantity" property="quantity"></id>
+        <id column="sumPrice" property="sumPrice"></id>
+    </resultMap>
+    
+    <select id="selectNotifion" resultMap="notifion">
+        select * from tjrac_notification
+    </select>
+
+    <select id="selectStatment" resultMap="notifion">
+        select * from tjrac_statement
+    </select>
+
+</mapper>
